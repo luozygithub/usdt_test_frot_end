@@ -16,79 +16,106 @@
       <el-col>{{ balance }}</el-col>
     </div>
     <h2>基本调用</h2>
-    <el-aside width="200px">
-      <strong> 1Approve</strong>
-    </el-aside>
-    <el-container>
-      <el-header>
-        <strong>授权此代币</strong>
-      </el-header>
-      <el-main>
-        <el-input v-model="input1" placeholder="授权对象地址"></el-input>
-        <el-input v-model="input2" placeholder="授权金额"></el-input>
-        <el-button @click="approve">Approve</el-button>
-      </el-main>
+    <el-container style="box-shadow: #999 0 0 10px;padding: 1em;margin-top: 1em">
+      <el-aside width="500px">
+        <strong> 1Approve</strong>
+        <p>批准传递的地址以代表msg.sender使用指定数量的令牌。</p>
+        <p>* @param _spender将使用资金的地址。</p>
+        * @param _value要花费的代币数量。
+      </el-aside>
+      <el-container>
+
+        <el-header>
+          <strong>授权此代币</strong>
+        </el-header>
+        <el-main>
+          <el-input v-model="input1" placeholder="授权对象地址"></el-input>
+          <el-input v-model="input2" placeholder="授权金额"></el-input>
+          <el-button @click="approve">Approve</el-button>
+        </el-main>
+      </el-container>
     </el-container>
-    <el-aside width="200px">
-      <strong>2Transfer</strong>
-    </el-aside>
-    <el-container>
-      <el-header>
-        <strong>转移此代币</strong>
-      </el-header>
-      <el-main>
-        <el-input v-model="input3" placeholder="转给谁"></el-input>
-        <el-input v-model="input4" placeholder="金额"></el-input>
-        <el-button @click="transfer">Transfer</el-button>
-      </el-main>
+    <el-container style="box-shadow: #999 0 0 10px;padding: 1em;margin-top: 1em">
+      <el-aside width="500px">
+        <strong>2Transfer</strong>
+       <p> * @dev指定地址的传输令牌</p>
+       <p> * @param _to要传输的地址。</p>
+        * @param _value要转移的金额。
+      </el-aside>
+      <el-container>
+        <el-header>
+          <strong>转移此代币</strong>
+        </el-header>
+        <el-main>
+          <el-input v-model="input3" placeholder="转给谁"></el-input>
+          <el-input v-model="input4" placeholder="金额"></el-input>
+          <el-button @click="transfer">Transfer</el-button>
+        </el-main>
+      </el-container>
     </el-container>
-    <el-aside width="200px">
-      <strong>3pause</strong>
-    </el-aside>
-    <el-container>
-      <el-header>
-        <strong>暂停交易</strong>
-      </el-header>
-      <el-main>
-        <el-button @click="pause">pause</el-button>
-      </el-main>
+    <el-container style="box-shadow: #999 0 0 10px;padding: 1em;margin-top: 1em">
+      <el-aside width="500px">
+        <strong>3pause</strong>
+        <p>被所有者调用暂停，触发停止状态</p>
+      </el-aside>
+      <el-container>
+        <el-header>
+          <strong>暂停交易</strong>
+
+        </el-header>
+        <el-main>
+          <el-button @click="pause">pause</el-button>
+        </el-main>
+      </el-container>
     </el-container>
-    <el-aside width="200px">
-      <strong>4addBlackList</strong>
-    </el-aside>
-    <el-container>
-      <el-header>
-        <strong>添加黑名单成员</strong>
-      </el-header>
-      <el-main>
-        <el-input v-model="input5" placeholder="地址"></el-input>
-        <el-button @click="addBlackList">addBlackList</el-button>
-      </el-main>
+    <el-container style="box-shadow: #999 0 0 10px;padding: 1em;margin-top: 1em">
+      <el-aside width="500px">
+        <strong>4addBlackList</strong>
+      </el-aside>
+      <el-container>
+        <el-header>
+          <strong>添加黑名单成员</strong>
+        </el-header>
+        <el-main>
+          <el-input v-model="input5" placeholder="地址"></el-input>
+          <el-button @click="addBlackList">addBlackList</el-button>
+        </el-main>
+      </el-container>
     </el-container>
-    <el-aside width="200px">
-      <strong>5transferOwnership</strong>
-    </el-aside>
-    <el-container>
-      <el-header>
-        <strong>转让管理员</strong>
-      </el-header>
-      <el-main>
-        <el-input v-model="input6" placeholder="地址"></el-input>
-        <el-button @click="transferOwnership">transferOwnership</el-button>
-      </el-main>
+    <el-container style="box-shadow: #999 0 0 10px;padding: 1em;margin-top: 1em">
+      <el-aside width="500px">
+        <strong>5transferOwnership</strong>
+        <p>允许当前所有者将合同的控制权转移给新所有者。</p>
+        * @param newOwner转移所有权的地址。
+      </el-aside>
+      <el-container>
+        <el-header>
+          <strong>转让管理员</strong>
+        </el-header>
+        <el-main>
+          <el-input v-model="input6" placeholder="地址"></el-input>
+          <el-button @click="transferOwnership">transferOwnership</el-button>
+        </el-main>
+      </el-container>
     </el-container>
-    <el-aside width="200px">
-      <strong>6 issue</strong>
-    </el-aside>
-    <el-container>
-      <el-header>
-        <strong>增发</strong>
-      </el-header>
-      <el-main>
-        <el-input v-model="input7" placeholder="金额"></el-input>
-        <el-button @click=" issue"> issue</el-button>
-      </el-main>
+    <el-container style="box-shadow: #999 0 0 10px;padding: 1em;margin-top: 1em">
+      <el-aside width="500px">
+        <strong>6 issue</strong>
+        <p>发行一个新的token数量</p>
+        <p> 这些令牌被存入所有者地址</p>
+         @param _amount要发行的令牌数量
+      </el-aside>
+      <el-container>
+        <el-header>
+          <strong>增发</strong>
+        </el-header>
+        <el-main>
+          <el-input v-model="input7" placeholder="金额"></el-input>
+          <el-button @click=" issue"> issue</el-button>
+        </el-main>
+      </el-container>
     </el-container>
+
   </div>
 
 </template>
