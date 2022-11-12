@@ -75,12 +75,10 @@ export default {
       this.connectIdx = idx
       this.isLoading = true
       await window.ethereum.request({
-        method: 'wallet_addEthereumChain',
+        method: 'wallet_switchEthereumChain',
         params: [
           {
-            chainId: '0x61',
-            chainName: 'BSCTEST',
-            rpcUrls: ['https://data-seed-prebsc-1-s1.binance.org:8545'] /* ... */,
+            chainId: '0x61'
           },
         ],
       });
