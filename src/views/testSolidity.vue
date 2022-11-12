@@ -5,12 +5,12 @@
     </div>
     <div class="contract">
       <div class="contract-nav">
-        <div class="contract-nav-item" @click="activeName = 'Contract'">
-          Contract
+        <div class="contract-nav-item" @click="$router.push('/testUSDW')">
+          合约基本方法
         </div>
         <div class="contract-nav-item" @click="activeName = item.name" v-for="(item,itemindex) in contractNameArr"
              :key="itemindex">
-          {{ item.name }}
+          {{ item.name }}合约全部方法测试
         </div>
       </div>
       <div class="contract-box" v-show="activeName =='Contract'">
@@ -38,13 +38,15 @@
               </div>
               <div class="inputs">
                 <div class="input" v-for="(input,inputindex) in abi.inputs" :key="inputindex">
-                  {{ input }}:
-                  <input v-model="abi.values[inputindex]" placeholder="请输入内容"/>
+                  <div class="paramName">
+                    {{ input }}:
+                  </div>
+                  <el-input v-model="abi.values[inputindex]" placeholder="请输入内容"/>
                 </div>
               </div>
-              <div class="button" @click="handleClick({name:item.name,abi})">
+              <el-button type="primary" @click="handleClick({name:item.name,abi})">
                 调用
-              </div>
+              </el-button>
             </div>
           </div>
 
@@ -200,11 +202,19 @@ export default {
             font-size: 16px;
             min-width: 240px;
             font-weight: bold;
+            display: flex;
+            align-items: center;
           }
 
           .inputs {
             padding: 0 20px;
             display: flex;
+            .paramName{
+              padding-bottom: 1em;
+            }
+            .input{
+              margin-left: 1em;
+            }
           }
 
           .button {

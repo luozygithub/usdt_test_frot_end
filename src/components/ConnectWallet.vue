@@ -1,11 +1,11 @@
 <template>
   <div class="connectWallet">
-    <button @click="showWallet" v-show="account" class="button-connect">
+    <el-button @click="showWallet" style="margin: 1em auto" v-show="account">
       {{ account }}
-    </button>
-    <button size="mini" @click="showWallet" v-show="!account" class="button-connect">
+    </el-button>
+    <el-button size="mini" @click="showWallet" v-show="!account" >
       连接
-    </button>
+    </el-button>
     <div v-show="isShowConnectStatus" class="connect-panel " @click="isShowConnectStatus=false;$emit('changeState')">
       <div class="mask"></div>
       <div class="connect-status-box animate__animated  animate__backInDown" @click.stop>
