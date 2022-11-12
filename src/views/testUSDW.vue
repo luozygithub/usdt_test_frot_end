@@ -115,7 +115,21 @@
         </el-main>
       </el-container>
     </el-container>
+    <el-container style="box-shadow: #999 0 0 10px;padding: 1em;margin-top: 1em">
+      <el-aside width="500px">
+        <strong>7 redeem</strong>
 
+      </el-aside>
+      <el-container>
+        <el-header>
+          <strong>燃烧代币</strong>
+        </el-header>
+        <el-main>
+          <el-input v-model="input8" placeholder="金额"></el-input>
+          <el-button @click="redeem"> redeem</el-button>
+        </el-main>
+      </el-container>
+    </el-container>
   </div>
 
 </template>
@@ -135,6 +149,7 @@ export default {
       input5:undefined,
       input6:undefined,
       input7:undefined,
+      input8:undefined,
       totalSupply:undefined,
       balance:undefined
     }
@@ -178,6 +193,15 @@ export default {
     },
     transferOwnership(){
       this.$store.dispatch("usdt/transferOwnership",this.input6).then(res=>{
+        console.log(res)
+        alert("success")
+      }).catch(err=>{
+        console.log(err)
+        alert("failed")
+      })
+    },
+    redeem(){
+      this.$store.dispatch("usdt/redeem",this.input7).then(res=>{
         console.log(res)
         alert("success")
       }).catch(err=>{
