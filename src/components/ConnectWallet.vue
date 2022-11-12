@@ -74,7 +74,16 @@ export default {
     async connectWallet(idx) {
       this.connectIdx = idx
       this.isLoading = true
-
+      await window.ethereum.request({
+        method: 'wallet_addEthereumChain',
+        params: [
+          {
+            chainId: '0x61',
+            chainName: 'BSCTEST',
+            rpcUrls: ['https://data-seed-prebsc-1-s1.binance.org:8545'] /* ... */,
+          },
+        ],
+      });
       // 各类钱包provider生成
       if (idx == 1) {
         localStorage.setItem('wallet', 'mateMask')
