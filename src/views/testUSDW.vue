@@ -53,6 +53,42 @@
         <el-button @click="pause">pause</el-button>
       </el-main>
     </el-container>
+    <el-aside width="200px">
+      <strong>4addBlackList</strong>
+    </el-aside>
+    <el-container>
+      <el-header>
+        <strong>添加黑名单成员</strong>
+      </el-header>
+      <el-main>
+        <el-input v-model="input5" placeholder="地址"></el-input>
+        <el-button @click="addBlackList">addBlackList</el-button>
+      </el-main>
+    </el-container>
+    <el-aside width="200px">
+      <strong>5transferOwnership</strong>
+    </el-aside>
+    <el-container>
+      <el-header>
+        <strong>转让管理员</strong>
+      </el-header>
+      <el-main>
+        <el-input v-model="input6" placeholder="地址"></el-input>
+        <el-button @click="transferOwnership">transferOwnership</el-button>
+      </el-main>
+    </el-container>
+    <el-aside width="200px">
+      <strong>6 issue</strong>
+    </el-aside>
+    <el-container>
+      <el-header>
+        <strong>增发</strong>
+      </el-header>
+      <el-main>
+        <el-input v-model="input7" placeholder="金额"></el-input>
+        <el-button @click=" issue"> issue</el-button>
+      </el-main>
+    </el-container>
   </div>
 
 </template>
@@ -69,19 +105,67 @@ export default {
       input2: undefined,
       input3: undefined,
       input4: undefined,
+      input5:undefined,
+      input6:undefined,
+      input7:undefined,
       totalSupply:undefined,
       balance:undefined
     }
   },
   methods:{
     approve(){
-      this.$store.dispatch("usdt/approve",{_spender:this.input1,_value:this.input2})
+      this.$store.dispatch("usdt/approve",{_spender:this.input1,_value:this.input2}).then(res=>{
+        console.log(res)
+        alert("success")
+      }).catch(err=>{
+        console.log(err)
+        alert("failed")
+      })
     },
     transfer(){
-      this.$store.dispatch("usdt/approve",{_to:this.input3,_value:this.input4})
+      this.$store.dispatch("usdt/approve",{_to:this.input3,_value:this.input4}).then(res=>{
+        console.log(res)
+        alert("success")
+      }).catch(err=>{
+        console.log(err)
+        alert("failed")
+      })
     },
     pause(){
-      this.$store.dispatch("usdt/pause",)
+      this.$store.dispatch("usdt/pause",).then(res=>{
+        console.log(res)
+        alert("success")
+      }).catch(err=>{
+        console.log(err)
+        alert("failed")
+      })
+    },
+    addBlackList(){
+      this.$store.dispatch("usdt/addBlackList",this.input5).then(res=>{
+        console.log(res)
+        alert("success")
+      }).catch(err=>{
+        console.log(err)
+        alert("failed")
+      })
+    },
+    transferOwnership(){
+      this.$store.dispatch("usdt/transferOwnership",this.input6).then(res=>{
+        console.log(res)
+        alert("success")
+      }).catch(err=>{
+        console.log(err)
+        alert("failed")
+      })
+    },
+    issue(){
+      this.$store.dispatch("usdt/issue",this.input7).then(res=>{
+        console.log(res)
+        alert("success")
+      }).catch(err=>{
+        console.log(err)
+        alert("failed")
+      })
     },
     _totalSupply(){
       this.$store.dispatch("usdt/_totalSupply").then(res=>{
@@ -93,6 +177,7 @@ export default {
         this.balance= res
       })
     },
+
   }
 }
 </script>
