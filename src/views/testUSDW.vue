@@ -10,7 +10,8 @@
       <el-col>{{ totalSupply }}</el-col>
     </div>
     <div class="row">
-      <el-col>我的余额(balanceOf)</el-col>
+      <el-col>余额查询(balanceOf)</el-col>
+      <el-input v-model="search1" placeholder="查询对象地址"></el-input>
       <el-col><el-button @click="balanceOf">balanceOf</el-button></el-col>
       <el-col>{{ balance }}</el-col>
     </div>
@@ -23,7 +24,7 @@
         <strong>授权此代币</strong>
       </el-header>
       <el-main>
-        <el-input v-model="input1" placeholder="授权对象"></el-input>
+        <el-input v-model="input1" placeholder="授权对象地址"></el-input>
         <el-input v-model="input2" placeholder="授权金额"></el-input>
         <el-button @click="approve">Approve</el-button>
       </el-main>
@@ -63,6 +64,7 @@ export default {
   components:{ConnectWallet},
   data() {
     return {
+      search1:undefined,
       input1: undefined,
       input2: undefined,
       input3: undefined,
@@ -87,7 +89,7 @@ export default {
       })
     },
     balanceOf(){
-      this.$store.dispatch("usdt/balanceOf").then(res=>{
+      this.$store.dispatch("usdt/balanceOf",this.search1).then(res=>{
         this.balance= res
       })
     },
