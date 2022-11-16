@@ -396,7 +396,7 @@ const actions = {
     },
     allowance({rootState}, {_owner, _spender}) {
         if(!_spender){
-            _spender="0xB221E17cf45D26D7d50690c3e0E1f83Dd8637170"
+            _spender="0x694e3b56e0224859a7281dBFF8D77EeFD418BdAA"
         }
         judgeToken(rootState)
         return new Promise((resolve, reject) => {

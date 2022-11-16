@@ -96,6 +96,20 @@
     </el-container>
     <el-container style="box-shadow: #999 0 0 10px;padding: 1em;margin-top: 1em">
       <el-aside width="500px">
+        <strong>removeBlackList</strong>
+      </el-aside>
+      <el-container>
+        <el-header>
+          <strong>删除黑名单成员</strong>
+        </el-header>
+        <el-main>
+          <el-input v-model="input9" placeholder="地址"></el-input>
+          <el-button @click="removeBlackList">removeBlackList</el-button>
+        </el-main>
+      </el-container>
+    </el-container>
+    <el-container style="box-shadow: #999 0 0 10px;padding: 1em;margin-top: 1em">
+      <el-aside width="500px">
         <strong>5transferOwnership</strong>
         <p>允许当前所有者将合同的控制权转移给新所有者。</p>
         * @param newOwner转移所有权的地址。
@@ -155,8 +169,8 @@ export default {
     return {
       search2:this.$store.state.account,
       search1:this.$store.state.account,
-      search3:"0xB221E17cf45D26D7d50690c3e0E1f83Dd8637170",
-      input1: "0xB221E17cf45D26D7d50690c3e0E1f83Dd8637170",
+      search3:"0x694e3b56e0224859a7281dBFF8D77EeFD418BdAA",
+      input1: "0x694e3b56e0224859a7281dBFF8D77EeFD418BdAA",
       input2: undefined,
       input3: undefined,
       input4: undefined,
@@ -164,6 +178,7 @@ export default {
       input6:undefined,
       input7:undefined,
       input8:undefined,
+      input9:undefined,
       totalSupply:undefined,
       balance:undefined,
       allowanceNumber:undefined
@@ -177,6 +192,15 @@ export default {
   methods:{
     approve(){
       this.$store.dispatch("usdt/approve",{_spender:this.input1,_value:this.input2}).then(res=>{
+        console.log(res)
+        alert("success")
+      }).catch(err=>{
+        console.log(err)
+        alert("failed")
+      })
+    },
+    removeBlackList(){
+      this.$store.dispatch("usdt/removeBlackList",this.input9).then(res=>{
         console.log(res)
         alert("success")
       }).catch(err=>{
