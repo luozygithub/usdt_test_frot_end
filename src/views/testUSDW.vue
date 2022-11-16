@@ -12,13 +12,18 @@
     <div class="row">
       <el-col>代币总供应量(_totalSupply)</el-col>
       <el-col><el-button @click="_totalSupply">TotalSupply</el-button></el-col>
-      <el-col>{{ totalSupply }}</el-col>
+      <el-col>{{ decimal?totalSupply/10**decimal:totalSupply }}</el-col>
     </div>
     <div class="row">
       <el-col>余额查询(balanceOf)</el-col>
       <el-input v-model="search1" placeholder="查询对象地址"></el-input>
       <el-col><el-button @click="balanceOf">balanceOf</el-button></el-col>
-      <el-col>{{ balance }}</el-col>
+      <el-col>{{ decimal?balance/10**decimal:balance }}</el-col>
+    </div>
+    <div class="row">
+      <el-col>精度(decimals)</el-col>
+      <el-col><el-button @click="decimals">decimals</el-button></el-col>
+      <el-col>{{ decimal }}</el-col>
     </div>
     <div class="row">
       <el-col>授权余额查询(allowance)</el-col>
@@ -60,7 +65,7 @@
         </el-header>
         <el-main>
           <el-input v-model="input3" placeholder="转给谁"></el-input>
-          <el-input v-model="input4" placeholder="金额"></el-input>
+          <el-input v-model="input4" placeholder="金额(已加精度)"></el-input>
           <el-button @click="transfer">Transfer</el-button>
         </el-main>
       </el-container>
@@ -77,6 +82,21 @@
         </el-header>
         <el-main>
           <el-button @click="pause">pause</el-button>
+        </el-main>
+      </el-container>
+    </el-container>
+    <el-container style="box-shadow: #999 0 0 10px;padding: 1em;margin-top: 1em">
+      <el-aside width="500px">
+        <strong>unpause</strong>
+        <p>被所有者调用取消暂停</p>
+      </el-aside>
+      <el-container>
+        <el-header>
+          <strong>取消暂停</strong>
+
+        </el-header>
+        <el-main>
+          <el-button @click="unpause">unpause</el-button>
         </el-main>
       </el-container>
     </el-container>
@@ -180,13 +200,20 @@ export default {
       input8:undefined,
       input9:undefined,
       totalSupply:undefined,
+      decimal: undefined,
       balance:undefined,
       allowanceNumber:undefined
     }
   },
   computed: {
     account(){
+      this.decimals()
       return this.$store.state.account
+    }
+  },
+  created() {
+    if(this.account){
+      this.decimals()
     }
   },
   methods:{
@@ -209,7 +236,7 @@ export default {
       })
     },
     transfer(){
-      this.$store.dispatch("usdt/transfer",{_to:this.input3,_value:this.input4}).then(res=>{
+      this.$store.dispatch("usdt/transfer",{_to:this.input3,_value:this.input4*10**18}).then(res=>{
         console.log(res)
         alert("success")
       }).catch(err=>{
@@ -219,6 +246,15 @@ export default {
     },
     pause(){
       this.$store.dispatch("usdt/pause",).then(res=>{
+        console.log(res)
+        alert("success")
+      }).catch(err=>{
+        console.log(err)
+        alert("failed")
+      })
+    },
+    unpause(){
+      this.$store.dispatch("usdt/unpause",).then(res=>{
         console.log(res)
         alert("success")
       }).catch(err=>{
@@ -277,6 +313,12 @@ export default {
         _owner:this.search2
       }).then(res=>{
         this.allowanceNumber= res
+      })
+    },
+    decimals(){
+      this.$store.dispatch("usdt/decimals",{
+      }).then(res=>{
+        this.decimal= res
       })
     },
   }
