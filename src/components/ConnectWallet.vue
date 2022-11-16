@@ -3,7 +3,7 @@
     <el-button @click="showWallet" style="margin: 1em auto" v-show="account">
       {{ account }}
     </el-button>
-    <el-button size="mini" @click="showWallet" v-show="!account" >
+    <el-button  style="margin: 1em auto" @click="showWallet" v-show="!account" >
       连接
     </el-button>
     <div v-show="isShowConnectStatus" class="connect-panel " @click="isShowConnectStatus=false;$emit('changeState')">

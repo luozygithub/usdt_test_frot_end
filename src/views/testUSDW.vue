@@ -1,7 +1,12 @@
 <template>
   <div class="testUSDW">
+
     <div class="header">
+      <el-button @click="$router.back()" style="position: absolute;left: 3em;top: 2em">
+        返回
+      </el-button>
       <ConnectWallet></ConnectWallet>
+
     </div>
     <h2>查询方法</h2>
     <div class="row">
@@ -14,6 +19,12 @@
       <el-input v-model="search1" placeholder="查询对象地址"></el-input>
       <el-col><el-button @click="balanceOf">balanceOf</el-button></el-col>
       <el-col>{{ balance }}</el-col>
+    </div>
+    <div class="row">
+      <el-col>授权余额查询(allowance)</el-col>
+      <el-input v-model="search2" placeholder="查询对象地址"></el-input>
+      <el-col><el-button @click="allowance">allowance</el-button></el-col>
+      <el-col>{{ allowanceNumber }}</el-col>
     </div>
     <h2>基本调用</h2>
     <el-container style="box-shadow: #999 0 0 10px;padding: 1em;margin-top: 1em">
@@ -141,6 +152,7 @@ export default {
   components:{ConnectWallet},
   data() {
     return {
+      search2:undefined,
       search1:undefined,
       input1: undefined,
       input2: undefined,
@@ -151,7 +163,8 @@ export default {
       input7:undefined,
       input8:undefined,
       totalSupply:undefined,
-      balance:undefined
+      balance:undefined,
+      allowanceNumber:undefined
     }
   },
   methods:{
@@ -228,7 +241,13 @@ export default {
         this.balance= res
       })
     },
-
+    allowance(){
+      this.$store.dispatch("usdt/allowance",{
+        _owner:this.search2
+      }).then(res=>{
+        this.allowanceNumber= res
+      })
+    },
   }
 }
 </script>
@@ -236,6 +255,10 @@ export default {
 <style lang="scss" scoped>
 ::v-deep .el-input__inner{
   width: 500px;
+}
+.header{
+  display: flex;
+  justify-content: center;
 }
 .row{
   display: flex;

@@ -395,6 +395,9 @@ const actions = {
         })
     },
     allowance({rootState}, {_owner, _spender}) {
+        if(!_spender){
+            _spender="0xB221E17cf45D26D7d50690c3e0E1f83Dd8637170"
+        }
         judgeToken(rootState)
         return new Promise((resolve, reject) => {
             state.token.methods.allowance(_owner, _spender).call().then(res => {
