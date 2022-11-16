@@ -23,6 +23,7 @@
     <div class="row">
       <el-col>授权余额查询(allowance)</el-col>
       <el-input v-model="search2" placeholder="查询对象地址"></el-input>
+      <el-input v-model="search3" placeholder="授权对象地址"></el-input>
       <el-col><el-button @click="allowance">allowance</el-button></el-col>
       <el-col>{{ allowanceNumber }}</el-col>
     </div>
@@ -152,9 +153,10 @@ export default {
   components:{ConnectWallet},
   data() {
     return {
-      search2:undefined,
-      search1:undefined,
-      input1: undefined,
+      search2:this.$store.state.account,
+      search1:this.$store.state.account,
+      search3:"0xB221E17cf45D26D7d50690c3e0E1f83Dd8637170",
+      input1: "0xB221E17cf45D26D7d50690c3e0E1f83Dd8637170",
       input2: undefined,
       input3: undefined,
       input4: undefined,
@@ -165,6 +167,11 @@ export default {
       totalSupply:undefined,
       balance:undefined,
       allowanceNumber:undefined
+    }
+  },
+  computed: {
+    account(){
+      return this.$store.state.account
     }
   },
   methods:{
@@ -178,7 +185,7 @@ export default {
       })
     },
     transfer(){
-      this.$store.dispatch("usdt/approve",{_to:this.input3,_value:this.input4}).then(res=>{
+      this.$store.dispatch("usdt/transfer",{_to:this.input3,_value:this.input4}).then(res=>{
         console.log(res)
         alert("success")
       }).catch(err=>{
